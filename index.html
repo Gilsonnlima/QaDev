@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Dados Brasil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+  <style>
+    @media (max-width: 1024px) {
+      .aside-left { display: none; }
+    }
+  </style>
+</head>
+<body class="flex bg-gray-100 min-h-screen">
+  <!-- Lateral Esquerda -->
+  <aside class="aside-left bg-gray-300 w-1/5 p-4 text-center hidden lg:block fixed top-0 left-0 h-screen z-10">
+    <h2 class="font-bold">Anúncio</h2>
+    <!-- Código de Ads aqui -->
+  </aside>
+
+  <div class="flex-1 flex flex-col ml-0 lg:ml-[20%] mr-[20%]">
+    <header class="bg-blue-700 text-white text-center py-6">
+      <h1 class="text-2xl font-bold animate-pulse">Gerador e Validador de Dados</h1>
+    </header>
+
+    <nav class="bg-blue-600 flex flex-wrap justify-center">
+      <button onclick="mostrarSecao('home')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>Home</button>
+      <button onclick="mostrarSecao('cpf')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>CPF</button>
+      <button onclick="mostrarSecao('nome')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-user"></i>Nome</button>
+      <button onclick="mostrarSecao('email')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-envelope"></i>Email</button>
+      <button onclick="mostrarSecao('cnpj')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-building"></i>CNPJ</button>
+      <button onclick="mostrarSecao('rg')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-address-card"></i>RG</button>
+      <button onclick="mostrarSecao('conta')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>Conta Bancária</button>
+      <button onclick="mostrarSecao('pissPassep')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-address-card"></i>PIS /PASSEP</button>
+      <button onclick="mostrarSecao('cnh')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>CNH</button>
+      <button onclick="mostrarSecao('titulDeEleitoral')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>Titulo Eleitoral</button>
+      <button onclick="mostrarSecao('cartao')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>Cartão de credito</button>
+      <button onclick="mostrarSecao('pessoa')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>Gerador de pessoa</button>
+      <button onclick="mostrarSecao('empresa')" class="text-white px-3 py-2 hover:bg-blue-800 flex items-center gap-2"><i class="fas fa-id-card"></i>Gerador de empresa</button>
+   
+      
+     
+
+
+    </nav>
+
+    <main id="conteudo" class="flex-1 flex items-center justify-center p-6"   >
+      <!-- HOME -->
+      <section id="home" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+        <h2 class="text-xl font-semibold mb-2">Bem-vindo!</h2>
+        <p>Use o menu para gerar/validar CPF, RG, Conta ou CNPJ. Pode copiar ou exportar os dados para PDF.</p>
+        
+      </section>
+     
+      <!-- Seção CPF -->
+      <section id="cpf" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+        <h2 class="text-xl font-bold mb-4">Gerador e Validador de CPF</h2>
+        <div class="mb-2 flex gap-2 flex-wrap">
+          <button onclick="gerarCPF(true)" class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-check"></i>Com máscara</button>
+          <button onclick="gerarCPF(false)" class="bg-yellow-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-times"></i>Sem máscara</button>
+        </div>
+        <p id="cpfResultado" class="bg-white p-2 rounded border mb-2"></p>
+        <button onclick="copiarTexto('cpfResultado')" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar</button>
+      </section>
+
+      <!-- Seção Nome -->
+      <section id="nome" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto hidden" >
+        <h2 class="text-xl font-bold mb-4">Gerador de Nome</h2>
+        <div class="mb-2">
+          <button onclick="gerarNome()" class="bg-purple-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-user-plus"></i>Gerar Nome</button>
+        </div>
+        <p id="nomeResultado" class="bg-white p-2 rounded border mb-2"></p>
+        <button onclick="copiarTexto('nomeResultado')" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar</button>
+      </section>
+
+      <!-- Seção Email -->
+      <section id="email" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto hidden" >
+        <h2 class="text-xl font-bold mb-4">Gerador de Email</h2>
+        <div class="mb-2">
+          <button onclick="gerarEmail()" class="bg-indigo-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-envelope-open-text"></i>Gerar Email</button>
+        </div>
+        <p id="emailResultado" class="bg-white p-2 rounded border mb-2"></p>
+        <button onclick="copiarTexto('emailResultado')" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar</button>
+      </section>
+
+      <!-- Seção CNPJ -->
+      <section id="cnpj" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto hidden">
+        <h2 class="text-xl font-bold mb-4">Gerador de CNPJ</h2>
+        <div class="mb-2 flex gap-2 flex-wrap">
+          <button onclick="gerarCNPJ(true)" class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-check"></i>Com máscara</button>
+          <button onclick="gerarCNPJ(false)" class="bg-yellow-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-times"></i>Sem máscara</button>
+        </div>
+        <p id="cnpjResultado" class="bg-white p-2 rounded border mb-2"></p>
+        <button onclick="copiarTexto('cnpjResultado')" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar</button>
+      </section>
+
+      <!-- Seção RG -->
+      <section id="rg" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto hidden">
+        <h2 class="text-xl font-bold mb-4">Gerador de RG</h2>
+        <div class="mb-2 flex gap-2 flex-wrap">
+          <button onclick="gerarRG(true)" class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-check"></i>Com máscara</button>
+          <button onclick="gerarRG(false)" class="bg-yellow-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-times"></i>Sem máscara</button>
+        </div>
+        <p id="rgResultado" class="bg-white p-2 rounded border mb-2"></p>
+        <button onclick="copiarTexto('rgResultado')" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar</button>
+      </section>
+
+    <!-- Conta -->
+    <section id="conta"  class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto hidden" >
+      <h2 class="text-xl font-semibold mb-2">Gerador de Conta Bancária</h2>
+      <button onclick="gerarConta()" class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-check"></i>Gerar Conta</button>
+      <p id="bancoResultado" class="mt-2"></p>
+      <button onclick="copiarTexto('bancoResultado')" class="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar</button>
+    </section>
+     
+    <!-- Empresa -->
+    <section id="empresa" class="bg-white p-6 rounded shadow-md max-w-xl mx-auto">
+      <h2 class="text-xl font-bold mb-4">Dados da Empresa</h2>
+      <div class="flex flex-col gap-4">
+        <button onclick="gerarEmpresa()" class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-industry"></i>Gerar Empresa</button>
+        <div>
+          <strong>Nome Fantasia:</strong>
+          <p id="nomeFantasia" class="bg-gray-100 p-2 rounded border"></p>
+        </div>
+        <div>
+          <strong>Razão Social:</strong>
+          <p id="razaoSocial" class="bg-gray-100 p-2 rounded border"></p>
+        </div>
+        <div>
+          <strong>Inscrição Estadual:</strong>
+          <p id="ie" class="bg-gray-100 p-2 rounded border"></p>
+        </div>
+        <div>
+          <strong>CNPJ:</strong>
+          <p id="cnpjN" class="bg-gray-100 p-2 rounded border"></p>
+
+        </div>
+        <div>
+          <strong>CEP:</strong>
+          <p id="cep" class="bg-gray-100 p-2 rounded border"></p>
+        </div>
+        <div>
+          <strong>Endereço:</strong>
+          <p id="endereco" class="bg-gray-100 p-2 rounded border"></p>
+        </div>
+
+        <button onclick="copiarDadosEmpresa()" class="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar Dados</button>
+      </div>
+    </section>
+
+     <!-- Empresa -->
+    <section id="pessoa"  class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+      <h2 class="text-xl font-bold mb-4">Dados da Pessoa</h2>
+      <div class="flex flex-col gap-4">
+        <button onclick="gerarPessoa()" class="bg-green-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-user"></i>Gerar Pessoa</button>
+
+        <div><strong>Nome:</strong> <p id="nomePessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Data de Nascimento:</strong> <p id="dataNascimentoPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>CPF:</strong> <p id="cpfPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>RG:</strong> <p id="rgPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>CEP:</strong> <p id="cepPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Endereço:</strong> <p id="enderecoPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Bairro:</strong> <p id="bairroPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Cidade:</strong> <p id="cidadePessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Estado:</strong> <p id="estadoPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Email:</strong> <p id="emailPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Celular:</strong> <p id="celularPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Nome do Pai:</strong> <p id="paiPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Nome da Mãe:</strong> <p id="maePessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>CNH:</strong> <p id="cnhPessoa" class="bg-gray-100 p-2 rounded border"></p></div>
+
+        <button onclick="copiarDadosPessoa()" class="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar Dados</button>
+      </div>
+    </section>
+
+      <!-- cartao -->
+    <section  id="cartao" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+      <h2 class="text-xl font-bold mb-4">Cartão de Crédito</h2>
+      <div class="flex flex-col gap-4">
+        <button onclick="gerarCartao()" class="bg-purple-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-credit-card"></i>Gerar Cartão</button>
+
+        <div><strong>Número:</strong> <p id="numeroCartao" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>Validade:</strong> <p id="validadeCartao" class="bg-gray-100 p-2 rounded border"></p></div>
+        <div><strong>CVV:</strong> <p id="cvvCartao" class="bg-gray-100 p-2 rounded border"></p></div>
+
+        <button onclick="copiarCartao()" class="bg-blue-600 text-white px-4 py-2 rounded flex items-center gap-2"><i class="fas fa-copy"></i>Copiar Cartão</button>
+      </div>
+    </section>
+  <!-- cartao -->
+  <section  id="pissPassep" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+    <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+      <h2 class="text-lg font-semibold mb-4">Clique no botão para gerar um PIS/PASEP válido</h2>
+      <button onclick="gerarPISPASEP()" class="w-full bg-yellow-500 text-white py-2 rounded flex items-center justify-center gap-2">
+        <i class="fas fa-sync-alt"></i> Gerar PIS/PASEP
+      </button>
+      <div class="mt-4">
+        <label class="block text-sm font-medium mb-1">Resultado</label>
+        <div class="flex gap-2">
+          <p id="pispasep" class="flex-1 bg-gray-100 p-2 rounded border"></p>
+          <button onclick="copiarPISPASEP()" class="bg-blue-500 text-white p-2 rounded flex items-center justify-center">
+            <i class="fas fa-copy"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- cartao -->
+ <section  id="pissPassep" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+    <h2 class="text-lg font-semibold mb-4">Clique no botão para gerar um PIS/PASEP válido</h2>
+    <button onclick="gerarPISPASEP()" class="w-full bg-yellow-500 text-white py-2 rounded flex items-center justify-center gap-2">
+      <i class="fas fa-sync-alt"></i> Gerar PIS/PASEP
+    </button>
+    <div class="mt-4">
+      <label class="block text-sm font-medium mb-1">Resultado</label>
+      <div class="flex gap-2">
+        <p id="pispasep" class="flex-1 bg-gray-100 p-2 rounded border"></p>
+        <button onclick="copiarPISPASEP()" class="bg-blue-500 text-white p-2 rounded flex items-center justify-center">
+          <i class="fas fa-copy"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- cartao -->
+<section  id="cnh" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+<div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+  <h2 class="text-lg font-semibold mb-4">Clique no botão para gerar uma CNH válida</h2>
+  <button onclick="gerarCNH()" class="w-full bg-green-600 text-white py-2 rounded flex items-center justify-center gap-2">
+    <i class="fas fa-sync-alt"></i> Gerar CNH
+  </button>
+  <div class="mt-4">
+    <label class="block text-sm font-medium mb-1">Resultado</label>
+    <div class="flex gap-2">
+      <p id="cnhDocumento" class="flex-1 bg-gray-100 p-2 rounded border"></p>
+      <button onclick="copiarCNH()" class="bg-blue-500 text-white p-2 rounded flex items-center justify-center">
+        <i class="fas fa-copy"></i>
+      </button>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- cartao -->
+<section  id="cnh" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+    <h2 class="text-lg font-semibold mb-4">Clique no botão para gerar uma CNH válida</h2>
+    <button onclick="gerarCNH()" class="w-full bg-green-600 text-white py-2 rounded flex items-center justify-center gap-2">
+      <i class="fas fa-sync-alt"></i> Gerar CNH
+    </button>
+    <div class="mt-4">
+      <label class="block text-sm font-medium mb-1">Resultado</label>
+      <div class="flex gap-2">
+        <p id="cnhDocumento" class="flex-1 bg-gray-100 p-2 rounded border"></p>
+        <button onclick="copiarCNH()" class="bg-blue-500 text-white p-2 rounded flex items-center justify-center">
+          <i class="fas fa-copy"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- cartao -->
+<section  id="titulDeEleitoral" class="bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
+    <h2 class="text-lg font-semibold mb-4">Clique no botão para gerar um Título Eleitoral válido</h2>
+    <button onclick="gerarTitulo()" class="w-full bg-green-600 text-white py-2 rounded flex items-center justify-center gap-2">
+      <i class="fas fa-sync-alt"></i> Gerar Título
+    </button>
+    <div class="mt-4">
+      <label class="block text-sm font-medium mb-1">Resultado</label>
+      <div class="flex gap-2">
+        <p id="titulo" class="flex-1 bg-gray-100 p-2 rounded border"></p>
+        <button onclick="copiarTitulo()" class="bg-blue-500 text-white p-2 rounded flex items-center justify-center">
+          <i class="fas fa-copy"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+    </main>
+    <footer class="bg-gray-800 text-white text-center py-6 mt-8">
+      <div class="container mx-auto px-4">
+        <p class="mb-2">&copy; 2025 Gerador de Dados Brasil</p>
+        <div class="flex justify-center space-x-4">
+          <a href="#" class="hover:underline">Política de Privacidade</a>
+          <a href="#" class="hover:underline">Termos de Uso</a>
+          <a href="#" class="hover:underline">Contato</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Lateral Direita -->
+  <aside class="bg-gray-300 w-1/5 p-4 text-center fixed top-0 right-0 h-screen z-10">
+    <h2 class="font-bold">Anúncio</h2>
+    <!-- Código de Ads aqui -->
+  </aside>
+
+ 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      mostrarSecao('home');
+    });
+
+    function mostrarSecao(secaoId) {
+      document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+      const secao = document.getElementById(secaoId);
+      if (secao) secao.classList.remove('hidden');
+    }
+
+    function copiarTexto(id) {
+      const el = document.getElementById(id);
+      if (!el || !el.textContent) return alert("Nada para copiar");
+      navigator.clipboard.writeText(el.textContent).then(() => alert("Copiado!"));
+    }
+
+    function gerarCPF(formatado = true) {
+      const n = () => Math.floor(Math.random() * 9);
+      const base = Array.from({ length: 9 }, n);
+
+      const calcDV = (digitos) => {
+        const soma = digitos.reduce((acc, d, i) => acc + d * (digitos.length + 1 - i), 0);
+        const resto = soma % 11;
+        return resto < 2 ? 0 : 11 - resto;
+      };
+
+      base.push(calcDV(base));
+      base.push(calcDV(base));
+
+      const cpf = base.join('');
+      const cpfFormatado = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+
+      document.getElementById('cpfResultado').textContent = formatado ? cpfFormatado : cpf;
+    }
+
+    function gerarNome() {
+      const nomes = ["João", "Maria", "Carlos", "Ana", "Pedro", "Mariana", "Lucas", "Fernanda", "José", "Patrícia"];
+      const sobrenomes = ["Silva", "Santos", "Oliveira", "Souza", "Lima", "Pereira", "Costa", "Ferreira", "Almeida", "Ribeiro"];
+      const nomeCompleto = nomes[Math.floor(Math.random() * nomes.length)] + ' ' + sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
+      document.getElementById('nomeResultado').textContent = nomeCompleto;
+    }
+
+    function gerarEmail() {
+      const nomes = ["joao", "maria", "carlos", "ana", "pedro", "mariana", "lucas", "fernanda", "jose", "patricia"];
+      const dominios = ["gmail.com", "outlook.com", "hotmail.com", "yahoo.com.br", "protonmail.com"];
+      const aleatorio = nomes[Math.floor(Math.random() * nomes.length)] + Math.floor(Math.random() * 10000);
+      const email = aleatorio + "@" + dominios[Math.floor(Math.random() * dominios.length)];
+      document.getElementById('emailResultado').textContent = email;
+    }
+  
+
+
+    function gerarRG(formatado = true) {
+      const n = () => Math.floor(Math.random() * 10);
+      const base = Array.from({ length: 8 }, n);
+      const dv = Math.floor(Math.random() * 10);
+      const rg = base.join('') + dv;
+      const rgFormatado = rg.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, "$1.$2.$3-$4");
+      document.getElementById('rgResultado').textContent = formatado ? rgFormatado : rg;
+    }
+
+    function gerarConta() {
+      const ag = Math.floor(1000 + Math.random() * 9000);
+      const ct = Math.floor(10000000 + Math.random() * 90000000);
+      const dv = Math.floor(Math.random() * 10);
+      document.getElementById("bancoResultado").textContent = `Agência: ${ag} | Conta: ${ct}-${dv}`;
+    }
+
+
+    function gerarDocumento() {
+      const nomesEmpresas = ["Tech Corp", "Solution Ltda", "Innovate SA", "Future Systems"];
+      const cnpj = gerarCNPJ(true);
+      const inscricaoEstadual = Math.floor(100000000 + Math.random() * 900000000);
+      const cep = `${Math.floor(10000 + Math.random() * 90000)}-${Math.floor(100 + Math.random() * 900)}`;
+      
+      document.getElementById("resultado").innerHTML = `
+        <strong>Nome Empresarial:</strong> ${nomesEmpresas[Math.floor(Math.random() * nomesEmpresas.length)]}<br>
+        <strong>CNPJ:</strong> ${cnpj}<br>
+        <strong>Inscrição Estadual:</strong> ${inscricaoEstadual}<br>
+        <strong>CEP:</strong> ${cep}
+      `;
+    }
+
+ function gerarCNPJ(formatado = true) {
+      const n = () => Math.floor(Math.random() * 9);
+      const base = Array.from({ length: 8 }, n).concat([0, 0, 0, 1]);
+
+     const calcDV = (arr, pesos) => {
+       const soma = arr.reduce((acc, num, i) => acc + num * pesos[i], 0);
+       const resto = soma % 11;
+       return resto < 2 ? 0 : 11 - resto;
+      };
+
+      const d1 = calcDV(base, [5,4,3,2,9,8,7,6,5,4,3,2]);
+      const d2 = calcDV(base.concat(d1), [6,5,4,3,2,9,8,7,6,5,4,3,2]);
+
+      const cnpj = base.concat([d1, d2]).join('');
+      const cnpjFormatado = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+
+      document.getElementById('cnpjResultado').textContent = formatado ? cnpjFormatado : cnpj;
+    } 
+   
+    function gerarCNPJEmpresa() {
+      const n = () => Math.floor(Math.random() * 9);
+      const base = Array.from({ length: 8 }, n).concat([0, 0, 0, 1]);
+
+      const calcDV = (arr, pesos) => {
+        const soma = arr.reduce((acc, num, i) => acc + num * pesos[i], 0);
+        const resto = soma % 11;
+        return resto < 2 ? 0 : 11 - resto;
+      };
+
+      const d1 = calcDV(base, [5,4,3,2,9,8,7,6,5,4,3,2]);
+      const d2 = calcDV([...base, d1], [6,5,4,3,2,9,8,7,6,5,4,3,2]);
+
+      const cnpj = [...base, d1, d2].join('');
+      return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+    }
+
+   
+    function gerarEmpresa() {
+      const nomes = ["Tech Solutions", "Nova Era", "Impacto Digital", "Alfa Beta", "NetSoft", "Vision Corp"];
+      const razoes = ["LTDA", "ME", "EIRELI", "SA"];
+      const logradouros = ["Rua das Flores", "Av. Brasil", "Rua da Paz", "Av. Paulista", "Rua Central"];
+      const cidades = ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Fortaleza"];
+      const estados = ["SP", "RJ", "MG", "PR", "CE"];
+
+      const nome = nomes[Math.floor(Math.random() * nomes.length)];
+      const razao = `${nome} ${razoes[Math.floor(Math.random() * razoes.length)]}`;
+      const ie = Math.floor(100000000 + Math.random() * 900000000).toString();
+      const cnpj = gerarCNPJEmpresa();
+      const cep = `${Math.floor(10000 + Math.random() * 90000)}-${Math.floor(100 + Math.random() * 900)}`;
+      const endereco = `${logradouros[Math.floor(Math.random() * logradouros.length)]}, ${Math.floor(Math.random() * 999)}, ${cidades[Math.floor(Math.random() * cidades.length)]} - ${estados[Math.floor(Math.random() * estados.length)]}`;
+
+      document.getElementById('nomeFantasia').textContent = nome;
+      document.getElementById('razaoSocial').textContent = razao;
+      document.getElementById('ie').textContent = ie;
+      document.getElementById('cnpjN').textContent = cnpj;
+      document.getElementById('cep').textContent = cep;
+      document.getElementById('endereco').textContent = endereco;
+
+      console.log (cnpj);
+    }
+
+    function copiarDadosEmpresa() {
+      const campos = ["nomeFantasia", "razaoSocial", "ie", "cnpj", "cep", "endereco"];
+      let texto = "";
+      campos.forEach(id => {
+        const valor = document.getElementById(id).textContent;
+    
+        texto += `${id.replace(/([A-Z])/g, ' $1')}: ${valor}\n`;
+    
+      });
+     
+      navigator.clipboard.writeText(texto).then(() => alert("Dados copiados!"));
+    }
+   
+    function gerarCPFPessoa() {
+      const n = () => Math.floor(Math.random() * 9);
+      let cpf = Array.from({ length: 9 }, n);
+      for (let j = 9; j <= 10; j++) {
+        let soma = cpf.slice(0, j).reduce((acc, val, idx) => acc + val * (j + 1 - idx), 0);
+        let digito = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+        cpf.push(digito);
+      }
+      return cpf.join('').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+
+    function gerarPessoa() {
+      const nomes = ["João Silva", "Maria Oliveira", "Carlos Souza", "Ana Costa", "Pedro Martins"];
+      const sobrenomes = ["Lima", "Fernandes", "Rocha", "Almeida", "Nascimento"];
+      const logradouros = ["Rua das Flores", "Av. Brasil", "Rua da Paz", "Av. Paulista", "Rua Central"];
+      const bairros = ["Centro", "Jardins", "Copacabana", "Savassi", "Boa Viagem"];
+      const cidades = ["São Paulo", "Rio de Janeiro", "Belo Horizonte", "Curitiba", "Recife"];
+      const estados = ["SP", "RJ", "MG", "PR", "PE"];
+
+      const nome = nomes[Math.floor(Math.random() * nomes.length)] + ' ' + sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
+      const dataNascimento = `${Math.floor(Math.random() * 28 + 1).toString().padStart(2, '0')}/${Math.floor(Math.random() * 12 + 1).toString().padStart(2, '0')}/${Math.floor(Math.random() * 40 + 1960)}`;
+      const cpf = gerarCPFPessoa();
+      const rg = Math.floor(100000000 + Math.random() * 900000000);
+      const cep = `${Math.floor(10000 + Math.random() * 90000)}-${Math.floor(100 + Math.random() * 900)}`;
+      const endereco = `${logradouros[Math.floor(Math.random() * logradouros.length)]}, ${Math.floor(Math.random() * 999)}`;
+      const bairro = bairros[Math.floor(Math.random() * bairros.length)];
+      const cidade = cidades[Math.floor(Math.random() * cidades.length)];
+      const estado = estados[Math.floor(Math.random() * estados.length)];
+      const email = nome.toLowerCase().replace(/ /g, '.') + "@exemplo.com";
+      const celular = `(11) 9${Math.floor(100000000 + Math.random() * 900000000)}`;
+      const pai = "Sr. " + sobrenomes[Math.floor(Math.random() * sobrenomes.length)] + " " + sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
+      const mae = "Sra. " + sobrenomes[Math.floor(Math.random() * sobrenomes.length)] + " " + sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
+      const cnh = Math.floor(10000000000 + Math.random() * 99999999999);
+
+      document.getElementById("nomePessoa").textContent = nome;
+      document.getElementById("dataNascimentoPessoa").textContent = dataNascimento;
+      document.getElementById("cpfPessoa").textContent = cpf;
+      document.getElementById("rgPessoa").textContent = rg;
+      document.getElementById("cepPessoa").textContent = cep;
+      document.getElementById("enderecoPessoa").textContent = endereco;
+      document.getElementById("bairroPessoa").textContent = bairro;
+      document.getElementById("cidadePessoa").textContent = cidade;
+      document.getElementById("estadoPessoa").textContent = estado;
+      document.getElementById("emailPessoa").textContent = email;
+      document.getElementById("celularPessoa").textContent = celular;
+      document.getElementById("paiPessoa").textContent = pai;
+      document.getElementById("maePessoa").textContent = mae;
+      document.getElementById("cnhPessoa").textContent = cnh;
+    }
+
+    function copiarDadosPessoa() {
+      const ids = ["nomePessoa", "dataNascimentoPessoa", "cpfPessoa", "rgPessoa", "cepPessoa", "enderecoPessoa", "bairroPessoa", "cidadePessoa", "estadoPessoa", "emailPessoa", "celularPessoa", "paiPessoa", "maePessoa", "cnhPessoaPessoa"];
+      let texto = "";
+      ids.forEach(id => {
+        texto += `${id.replace(/([A-Z])/g, ' $1')}: ${document.getElementById(id).textContent}\n`;
+      });
+      navigator.clipboard.writeText(texto).then(() => alert("Dados copiados!"));
+    }
+    function gerarCartao() {
+      const prefixos = [4, 5];
+      let prefixo = prefixos[Math.floor(Math.random() * prefixos.length)];
+      let numero = prefixo.toString();
+      for (let i = 0; i < 15; i++) {
+        numero += Math.floor(Math.random() * 10);
+      }
+      const validade = `${String(Math.floor(Math.random() * 12 + 1)).padStart(2, '0')}/${Math.floor(Math.random() * 5 + 25)}`;
+      const cvv = `${Math.floor(100 + Math.random() * 900)}`;
+      document.getElementById("numeroCartao").textContent = numero;
+      document.getElementById("validadeCartao").textContent = validade;
+      document.getElementById("cvvCartao").textContent = cvv;
+    }
+    function copiarCartao() {
+      const numero = document.getElementById("numeroCartao").textContent;
+      const validade = document.getElementById("validadeCartao").textContent;
+      const cvv = document.getElementById("cvvCartao").textContent;
+      const texto = `Número: ${numero}\nValidade: ${validade}\nCVV: ${cvv}`;
+      navigator.clipboard.writeText(texto).then(() => alert("Cartão copiado!"));
+    }
+
+    function gerarPISPASEP() {
+      // Gera 10 dígitos e calcula o dígito verificador
+      const n = () => Math.floor(Math.random() * 10);
+      let pis = Array.from({ length: 10 }, n);
+      const pesos = [3,2,9,8,7,6,5,4,3,2];
+      let soma = pis.reduce((acc, val, idx) => acc + val * pesos[idx], 0);
+      let resto = soma % 11;
+      let digito = resto < 2 ? 0 : 11 - resto;
+      pis.push(digito);
+      document.getElementById('pispasep').textContent = pis.join('.').replace(/\.(?=.*\.)/g, '');
+    }
+
+    function copiarPISPASEP() {
+      const texto = document.getElementById('pispasep').textContent;
+      if (!texto) return alert('Gere o PIS/PASEP primeiro!');
+      navigator.clipboard.writeText(texto).then(() => alert('PIS/PASEP copiado!'));
+    }
+
+    function gerarCNH() {
+      // CNH tem 9 números + 2 dígitos verificadores
+      const n = () => Math.floor(Math.random() * 10);
+      let base = Array.from({ length: 9 }, n);
+
+      // Cálculo do primeiro dígito verificador
+      let d1 = base.reduce((acc, num, idx) => acc + num * (9 - idx), 0);
+      d1 = d1 % 11;
+      d1 = d1 >= 10 ? 0 : d1;
+
+      // Cálculo do segundo dígito verificador
+      let d2 = base.reduce((acc, num, idx) => acc + num * (1 + idx), 0);
+      d2 = d2 % 11;
+      d2 = d2 >= 10 ? 0 : d2;
+
+      const cnh = base.join('') + d1 + d2;
+      document.getElementById('cnhDocumento').textContent = cnh;
+    }
+
+    function copiarCNH() {
+      const texto = document.getElementById('cnhDocumento').textContent;
+      if (!texto) return alert('Gere a CNH primeiro!');
+      navigator.clipboard.writeText(texto).then(() => alert('CNH copiada!'));
+    }
+
+    function gerarTitulo() {
+      // Título Eleitoral: 8 dígitos + 2 de UF + 2 dígitos verificadores
+      const n = () => Math.floor(Math.random() * 10);
+      let num = Array.from({ length: 8 }, n);
+      let uf = Array.from({ length: 2 }, n);
+      let base = [...num, ...uf];
+
+      // Cálculo dos dígitos verificadores
+      let d1 = base.reduce((acc, val, idx) => acc + val * (idx + 2), 0) % 11;
+      d1 = d1 < 2 ? 0 : 11 - d1;
+      base.push(d1);
+
+      let d2 = base.reduce((acc, val, idx) => acc + val * (idx + 2), 0) % 11;
+      d2 = d2 < 2 ? 0 : 11 - d2;
+      base.push(d2);
+
+      const titulo = base.join('');
+      document.getElementById('titulo').textContent = titulo;
+    }
+
+    function copiarTitulo() {
+      const texto = document.getElementById('titulo').textContent;
+      if (!texto) return alert('Gere o Título Eleitoral primeiro!');
+      navigator.clipboard.writeText(texto).then(() => alert('Título copiado!'));
+    }
+  
+    </script>
+</body>
+</html>
